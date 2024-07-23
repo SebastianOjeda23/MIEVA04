@@ -9,7 +9,10 @@ const initialState: Videojuego = {
     compania: "",
     copias: 0,
     fecha: "",
-    distribuidora:"",
+    distribuidora: "",
+    genero: "",
+    precio: 0,
+    duracion: "",
     key: ""
 }
 
@@ -17,7 +20,7 @@ export const Pagina5 = () => {
     const router = useRouter()
     const [videojuego, setVideojuego] = useState<Videojuego>(initialState)
 
-    const handleVideojuego = (name: string, value: string) => {
+    const handleVideojuego = (name: string, value: string | number) => {
         setVideojuego({ ...videojuego, [name]: value })
     }
 
@@ -78,7 +81,7 @@ export const Pagina5 = () => {
                         placeholder='Ingrese el número de copias: '
                         value={videojuego.copias}
                         name="copias"
-                        onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, Number(e.currentTarget.value)) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Fecha:</Form.Label>
@@ -91,12 +94,39 @@ export const Pagina5 = () => {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Distribuidora:</Form.Label>
-                    <Form.Control type='text' 
+                    <Form.Control
+                        type='text'
                         placeholder='Ingrese la empresa distribuidora: '
-                        name="direccion"
+                        name="distribuidora"
                         value={videojuego.distribuidora}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
-                    <Form.Text></Form.Text>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Genero:</Form.Label>
+                    <Form.Control
+                        type='text'
+                        placeholder='Ingrese el género: '
+                        name="genero"
+                        value={videojuego.genero}
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Precio:</Form.Label>
+                    <Form.Control
+                        type='number'
+                        placeholder='Ingrese el precio: '
+                        name="precio"
+                        value={videojuego.precio}
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, Number(e.currentTarget.value)) }} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Duración:</Form.Label>
+                    <Form.Control
+                        type='text'
+                        placeholder='Ingrese la duración del juego: '
+                        name="duracion"
+                        value={videojuego.duracion}
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
                 </Form.Group>
                 <Button type="button" variant='success' onClick={modificar}>Modificar</Button>
             </Form>

@@ -26,6 +26,9 @@ export const obtenerVideojuegos = async () => {
                 copias: doc.data().copias,
                 fecha: doc.data().fecha,
                 distribuidora: doc.data().distribuidora,
+                genero: doc.data().genero,
+                precio: doc.data().precio,
+                duracion: doc.data().duracion,
                 key: doc.id
             };
             videojuegos.push(videojuego);
@@ -49,7 +52,11 @@ export const obtenerVideojuego = async (key: string) => {
                 copias: docSnap.data().copias,
                 fecha: docSnap.data().fecha,
                 distribuidora: docSnap.data().distribuidora,
+                genero: docSnap.data().genero,
+                precio: docSnap.data().precio,
+                duracion: docSnap.data().duracion,
                 key: docSnap.id
+                
                 
             };
             return videojuego;

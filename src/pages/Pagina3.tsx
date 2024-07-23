@@ -9,7 +9,10 @@ const initialState: Videojuego = {
     compania: "",
     copias: 0,
     fecha: "",
-    distribuidora:"",
+    distribuidora: "",
+    genero: "",
+    precio: 0,
+    duracion: ""
 }
 
 export const PaginaVideojuegos = () => {
@@ -27,7 +30,9 @@ export const PaginaVideojuegos = () => {
         if (videojuego.copias <= 0) newErrors.copias = "Debe ingresar un número de copias mayor a 0."
         if (!videojuego.fecha) newErrors.fecha = "La fecha de salida es obligatoria."
         if (!videojuego.distribuidora) newErrors.distribuidora = "La distribuidora es obligatoria."
-
+        if (!videojuego.genero) newErrors.genero = "El género es obligatorio."
+        if (!videojuego.precio) newErrors.precio = "El precio es obligatorio."
+        if (!videojuego.duracion) newErrors.duracion = "La duración es obligatoria."
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
     }
@@ -86,6 +91,30 @@ export const PaginaVideojuegos = () => {
                         value={videojuego.distribuidora}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
                     {errors.distribuidora && <Form.Text className="text-danger">{errors.distribuidora}</Form.Text>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Precio CLP:</Form.Label>
+                    <Form.Control type='number' placeholder='Ingrese el precio: '
+                        name="precio"
+                        value={videojuego.precio}
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
+                    {errors.precio && <Form.Text className="text-danger">{errors.precio}</Form.Text>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Genero:</Form.Label>
+                    <Form.Control type='text' placeholder='Ingrese el genero del juego: '
+                        name="genero"
+                        value={videojuego.genero}
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
+                    {errors.genero && <Form.Text className="text-danger">{errors.genero}</Form.Text>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Duracion:</Form.Label>
+                    <Form.Control type='text' placeholder='Ingrese la duracion del juego: '
+                        name="duracion"
+                        value={videojuego.duracion}
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
+                    {errors.duracion && <Form.Text className="text-danger">{errors.duracion}</Form.Text>}
                 </Form.Group>
                 <Button type="button" variant='success'
                     onClick={registrar}>Registrar</Button>

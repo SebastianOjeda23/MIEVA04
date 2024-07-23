@@ -5,4 +5,7 @@ export interface Videojuego {
     fecha: string;
     distribuidora:string,
     key?: string;
+    genero: string
+    precio: number
+    duracion:string
 }
