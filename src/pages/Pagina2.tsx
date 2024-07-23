@@ -1,48 +1,25 @@
-import React, { useState } from 'react'
-import  Form  from 'react-bootstrap/Form'
-// import {Form} from 'react-bootstrap'
+import Link from "next/link";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 
-import { Button } from 'react-bootstrap';
-export const Pagina2 = () => {
-    const [numero1, setNumero1] = useState(0)
-    const [numero2, setNumero2] = useState(0)
-    const [resultado,setResultado] = useState(0)
-    const getN1 = (valor:string)=>{
-        const n1 = parseInt(valor);
-        setNumero1(n1);
-        handleSumar();
-    }
-    const getN2 = (valor:string)=>{
-        const n2 = parseInt(valor);
-        setNumero2(n2);
-        handleSumar();
-    }
-    const handleSumar = ()=>{
-        const t = numero1 + numero2
-        setResultado(t)
-    }
+export default function Home() {
   return (
     <>
-   
-    <Form>
-        <Form.Group className="mb-3" controlId="formBasicNombre">
-            <Form.Label>Nombre:</Form.Label>
-            <Form.Control type='text' placeholder='Ingrese un nombre' onChange={(e)=>getN1(e.currentTarget.value)}/>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicApellido">
-            <Form.Label>Apellido:</Form.Label>
-            <Form.Control type='text' placeholder='Ingrese un apellido'  onChange={(e)=>getN2(e.currentTarget.value)}/>
-        </Form.Group>
-        <Button variant='primary' type='button' onClick={handleSumar}>Registrar</Button>
-        <Form.Group className="mb-3" controlId="formBasicResultado">
-            <Form.Label>Resultado:</Form.Label>
-            <Form.Control type='text'   value={resultado}/>
-        </Form.Group>
-    </Form>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="/">Game Cave</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/Pagina3">Registrar videojuego</Nav.Link>
+            <Nav.Link href="/Pagina4">Lista de videojuegos</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
 
-
-
+      <Container className="mt-5 text-center">
+        <h1>Bienvenido a Game Cave</h1>
+        <p>Compra tus juegos favoritos de manera rápida y sencilla.</p>
+        <Button variant="primary" href="/Pagina3" className="m-2">Registro</Button>
+        <Button variant="primary" href="/Pagina4" className="m-2">Tabla</Button>
+      </Container>
     </>
-  )
+  );
 }
-export default Pagina2

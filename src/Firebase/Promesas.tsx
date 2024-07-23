@@ -1,6 +1,7 @@
 import { addDoc, collection, doc, getDoc, getDocs, updateDoc,deleteDoc } from "firebase/firestore";
 import { db } from "./Firebase";
 import { Videojuego } from "@/Interfaces/IVideojuegos";
+import { Usuario } from "@/Interfaces/Usuario";
 
 // Registrar un nuevo videojuego
 export const registrarVideojuego = async (videojuego: Videojuego) => {
@@ -24,6 +25,7 @@ export const obtenerVideojuegos = async () => {
                 compania: doc.data().compania,
                 copias: doc.data().copias,
                 fecha: doc.data().fecha,
+                direccion: doc.data().direccion,
                 key: doc.id
             };
             videojuegos.push(videojuego);
@@ -46,7 +48,9 @@ export const obtenerVideojuego = async (key: string) => {
                 compania: docSnap.data().compania,
                 copias: docSnap.data().copias,
                 fecha: docSnap.data().fecha,
+                direccion: docSnap.data().direccion,
                 key: docSnap.id
+                
             };
             return videojuego;
         } else {
@@ -77,3 +81,33 @@ export const eliminarVideojuego = async (key: string) => {
     const docRef = doc(db, "videojuegos", key);
     await deleteDoc(docRef);
 }
+
+export const registrarUsuario = async (usuario: Usuario) => {
+    try {
+        await addDoc(collection(db, "usuarios"), usuario);
+        console.log("Usuario registrado exitosamente");
+    } catch (error) {
+        console.error("Error al registrar el usuario:", error);
+    }
+}
+
+export const obtenerUsuarios = async () => {
+    try {
+        const querySnapshot = await getDocs(collection(db, "usuarios"));
+        let usuarios: Usuario[] = [];
+        querySnapshot.forEach((doc) => {
+            let usuario: Usuario = {
+                nombre: doc.data().nombre,
+                correo: doc.data().correo,
+                contrasena: doc.data().contrasena,
+                edad: doc.data().edad,
+                apellido: doc.data().apellido
+            };
+            usuarios.push(usuario);
+        });
+        return usuarios;
+    } catch (error) {
+        console.error("Error al obtener usuarios:", error);
+        throw new Error("Error al obtener usuarios");
+    }
+};

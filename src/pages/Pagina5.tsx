@@ -9,7 +9,8 @@ const initialState: Videojuego = {
     compania: "",
     copias: 0,
     fecha: "",
-    key: "" // Asegúrate de incluir el campo `key` en el estado inicial
+    direccion:"",
+    key: ""
 }
 
 export const Pagina5 = () => {
@@ -87,6 +88,15 @@ export const Pagina5 = () => {
                         value={videojuego.fecha}
                         name="fecha"
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Direccion:</Form.Label>
+                    <Form.Control type='textarea' 
+                        placeholder='Ingrese la direccion de su casa: '
+                        name="direccion"
+                        value={videojuego.direccion}
+                        onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
+                    <Form.Text></Form.Text>
                 </Form.Group>
                 <Button type="button" variant='success' onClick={modificar}>Modificar</Button>
             </Form>

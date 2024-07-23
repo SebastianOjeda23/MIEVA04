@@ -1,48 +1,77 @@
-import React, { useState } from 'react'
-import  Form  from 'react-bootstrap/Form'
-// import {Form} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { Navbar, Nav, Button, Form } from "react-bootstrap";
+import { obtenerUsuarios } from "@/Firebase/Promesas"; // Asegúrate de tener esta función para obtener usuarios
 
-export const Pagina1 = () => {
-  const [nombre, setNombre] = useState("Joselito") 
-  const [apellido, setApellido] = useState("Perez")
-  const [errorNombre,setErrorNombre] = useState("")
-  const validarNombre = (valor:string)=>{
-    if(valor.length>4){
-        setErrorNombre("");
-    }else{
-        setErrorNombre("Debes ingresar 4 caracteres como minimo")
+export default function Pagina1() {
+  const [correo, setCorreo] = useState("");
+  const [contrasena, setContrasena] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    setError("");
+
+    try {
+      const usuarios = await obtenerUsuarios(); 
+      const usuarioValido = usuarios.find(
+        (usuario) => usuario.correo === correo && usuario.contrasena === contrasena
+      );
+
+      if (usuarioValido) {
+        alert("Inicio de sesión exitoso");
+        router.push("/Pagina2");
+      } else {
+        setError("Credenciales inválidas");
+      }
+    } catch (e) {
+      console.error("Error al iniciar sesión:", e);
+      setError("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
     }
-    setNombre(valor);
-  }
- const handleRegistrar = ()=>{
-    console.log("Se registro con exito");
-    alert("Listo! "+nombre+" "+apellido);
- }
-
-
-
+  };
 
   return (
     <>
-    <h1>Bienvenido {nombre} {apellido}</h1>
-    <p>{errorNombre}</p>
-    <Form>
-        <Form.Group className="mb-3" controlId="formBasicNombre">
-            <Form.Label>Nombre:</Form.Label>
-            <Form.Control type='text' placeholder='Ingrese un nombre' onChange={(e)=>validarNombre(e.currentTarget.value)}/>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicApellido">
-            <Form.Label>Apellido:</Form.Label>
-            <Form.Control type='text' placeholder='Ingrese un apellido'  onChange={(e)=>setApellido(e.currentTarget.value)}/>
-        </Form.Group>
-        <Button variant='primary' type='button' onClick={handleRegistrar}>Registrar</Button>
-    </Form>
+      <Navbar bg="dark" variant="dark">
+        <div className="container">
+          <Navbar.Brand href="/">Game Cave</Navbar.Brand>
+        </div>
+      </Navbar>
 
+      <div className="mt-5 text-center">
+        <h1>Iniciar Sesión en Game Cave</h1>
+        <p>Ingresa tus credenciales para acceder a tu cuenta.</p>
 
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Ingrese su email"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+            />
+          </Form.Group>
 
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Ingrese su contraseña"
+              value={contrasena}
+              onChange={(e) => setContrasena(e.target.value)}
+            />
+          </Form.Group>
+
+          {error && <p className="text-danger">{error}</p>}
+
+          <div className="text-center">
+            <Button variant="primary" onClick={handleLogin} className="m-2">
+              Iniciar Sesión
+            </Button>
+          </div>
+        </Form>
+      </div>
     </>
-  )
+  );
 }
-export default Pagina1
