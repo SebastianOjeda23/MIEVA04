@@ -25,7 +25,7 @@ export const obtenerVideojuegos = async () => {
                 compania: doc.data().compania,
                 copias: doc.data().copias,
                 fecha: doc.data().fecha,
-                direccion: doc.data().direccion,
+                distribuidora: doc.data().distribuidora,
                 key: doc.id
             };
             videojuegos.push(videojuego);
@@ -48,7 +48,7 @@ export const obtenerVideojuego = async (key: string) => {
                 compania: docSnap.data().compania,
                 copias: docSnap.data().copias,
                 fecha: docSnap.data().fecha,
-                direccion: docSnap.data().direccion,
+                distribuidora: docSnap.data().distribuidora,
                 key: docSnap.id
                 
             };

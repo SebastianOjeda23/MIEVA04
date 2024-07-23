@@ -3,6 +3,6 @@ export interface Videojuego {
     compania: string;
     copias: number;
     fecha: string;
-    direccion:string,
+    distribuidora:string,
     key?: string;
 }

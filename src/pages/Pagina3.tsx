@@ -9,19 +9,35 @@ const initialState: Videojuego = {
     compania: "",
     copias: 0,
     fecha: "",
-    direccion:"",
+    distribuidora:"",
 }
 
 export const PaginaVideojuegos = () => {
     const [videojuego, setVideojuego] = useState<Videojuego>(initialState)
-    
+    const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
     const handleVideojuego = (name: string, value: string | number) => {
         setVideojuego({ ...videojuego, [name]: value })
     }
 
+    const validate = () => {
+        const newErrors: { [key: string]: string } = {}
+        if (!videojuego.nombre) newErrors.nombre = "El nombre del juego es obligatorio."
+        if (!videojuego.compania) newErrors.compania = "La compañía es obligatoria."
+        if (videojuego.copias <= 0) newErrors.copias = "Debe ingresar un número de copias mayor a 0."
+        if (!videojuego.fecha) newErrors.fecha = "La fecha de salida es obligatoria."
+        if (!videojuego.distribuidora) newErrors.distribuidora = "La distribuidora es obligatoria."
+
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
+
     const registrar = () => {
+        if (!validate()) return
+
         registrarVideojuego(videojuego).then(() => {
             alert("Se logró registrar el videojuego")
+            setVideojuego(initialState)  // Limpiar el formulario después de registrar
         }).catch((e) => {
             console.log(e);
             alert("Algo ocurrió")
@@ -37,7 +53,7 @@ export const PaginaVideojuegos = () => {
                         name="nombre"
                         value={videojuego.nombre}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
-                    <Form.Text></Form.Text>
+                    {errors.nombre && <Form.Text className="text-danger">{errors.nombre}</Form.Text>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Compañía:</Form.Label>
@@ -45,7 +61,7 @@ export const PaginaVideojuegos = () => {
                         name="compania"
                         value={videojuego.compania}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
-                    <Form.Text></Form.Text>
+                    {errors.compania && <Form.Text className="text-danger">{errors.compania}</Form.Text>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Copias:</Form.Label>
@@ -53,7 +69,7 @@ export const PaginaVideojuegos = () => {
                         name="copias"
                         value={videojuego.copias}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, Number(e.currentTarget.value)) }} />
-                    <Form.Text></Form.Text>
+                    {errors.copias && <Form.Text className="text-danger">{errors.copias}</Form.Text>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Fecha salida:</Form.Label>
@@ -61,15 +77,15 @@ export const PaginaVideojuegos = () => {
                         name="fecha"
                         value={videojuego.fecha}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
-                    <Form.Text></Form.Text>
+                    {errors.fecha && <Form.Text className="text-danger">{errors.fecha}</Form.Text>}
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Direccion:</Form.Label>
-                    <Form.Control type='textarea' placeholder='Ingrese la direccion de su casa: '
-                        name="direccion"
-                        value={videojuego.direccion}
+                    <Form.Label>Distribuidora:</Form.Label>
+                    <Form.Control type='text' placeholder='Ingrese la empresa distribuidora: '
+                        name="distribuidora"
+                        value={videojuego.distribuidora}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
-                    <Form.Text></Form.Text>
+                    {errors.distribuidora && <Form.Text className="text-danger">{errors.distribuidora}</Form.Text>}
                 </Form.Group>
                 <Button type="button" variant='success'
                     onClick={registrar}>Registrar</Button>

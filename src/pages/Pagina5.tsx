@@ -9,7 +9,7 @@ const initialState: Videojuego = {
     compania: "",
     copias: 0,
     fecha: "",
-    direccion:"",
+    distribuidora:"",
     key: ""
 }
 
@@ -90,11 +90,11 @@ export const Pagina5 = () => {
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Direccion:</Form.Label>
-                    <Form.Control type='textarea' 
-                        placeholder='Ingrese la direccion de su casa: '
+                    <Form.Label>Distribuidora:</Form.Label>
+                    <Form.Control type='text' 
+                        placeholder='Ingrese la empresa distribuidora: '
                         name="direccion"
-                        value={videojuego.direccion}
+                        value={videojuego.distribuidora}
                         onChange={(e) => { handleVideojuego(e.currentTarget.name, e.currentTarget.value) }} />
                     <Form.Text></Form.Text>
                 </Form.Group>

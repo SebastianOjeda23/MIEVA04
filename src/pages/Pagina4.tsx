@@ -54,8 +54,7 @@ export const Pagina4 = () => {
                         <th>Compañía</th>
                         <th>Copias</th>
                         <th>Fecha salida</th>
-                        <th>Dirección</th>
-                        <th>Acciones</th>
+                        <th>Distribuidora</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,7 +65,7 @@ export const Pagina4 = () => {
                                 <td>{v.compania}</td>
                                 <td>{v.copias}</td>
                                 <td>{v.fecha}</td>
-                                <td>{v.direccion}</td>
+                                <td>{v.distribuidora}</td>
                                 <td>
                                     <Link href={{ pathname: 'Pagina5', query: { key: v.key } }}>
                                         <Button variant='warning'><FaEdit /></Button>
